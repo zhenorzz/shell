@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+set DATE [exec date  -d -1day "+%Y%m%d"] 
+set password xxxxxxxxxx
+set timeout -1
+spawn scp -r root@xxx.xxx.xxx.xx:/data/backup_mongo/backup/v2bck/timing_backup_$DATE /data/mongodb/backup
+expect {
+        "*continue connecting (yes/no)?" { send "yes\r"; exp_continue }
+        "*assword:" {
+                send "$password\r";
+        }
+}
+expect eof
